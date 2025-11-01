@@ -1,7 +1,7 @@
-const Database = require('better-sqlite3');
+const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 const bcrypt = require('bcrypt');
-
+  
 // Abrir banco de dados existente
 const db = new Database(path.join(__dirname, 'marketplace.db'));
 

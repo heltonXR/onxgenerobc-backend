@@ -21,11 +21,45 @@ const db = require('./database/init');
 const app = express();
 const server = http.createServer(app);
 
+// Configurar CORS
+const corsOptions = {
+  origin: [
+    'http://localhost:19006', // Expo Web
+    'http://localhost:3000',  // Seu backend
+    'exp://',                 // Todos os dispositivos Expo
+    'http://192.168.*.*:19000', // Para dispositivos na rede local
+    'http://10.236.84.143:19006', // IP antigo
+    'http://10.236.84.143:3000',  // IP antigo
+    'http://10.147.133.143:19006', // IP atual
+    'http://10.147.133.143:3000',  // IP atual
+    'http://10.147.133.143:19000'  // Para o Metro bundler
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // Habilitar preflight para todas as rotas
+
 // Configurar Socket.io
 const io = new Server(server, {
   cors: {
-    origin: "*", // Em produção, especifique o domínio do app
-    methods: ["GET", "POST"]
+    origin: [
+      'http://localhost:19006',
+      'http://localhost:3000',
+      'exp://',
+      'http://192.168.*.*:19000',
+      'http://10.236.84.143:19006',
+      'http://10.147.133.143:19006',
+      'http://10.147.133.143:3000',
+      'http://10.147.133.143:19000',
+      'http://10.236.84.143:3000',
+      'http://10.142.90.143:19006',
+      'http://10.142.90.143:3000'
+    ],
+    methods: ["GET", "POST"],
+    credentials: true
   }
 });
 

@@ -91,6 +91,11 @@ app.get('/', (req, res) => {
   });
 });
 
+// Rota de health para teste de conexão
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', message: 'API online' });
+});
+
 // Socket.io - Chat em tempo real
 io.on('connection', (socket) => {
   console.log('✅ Cliente conectado:', socket.id);

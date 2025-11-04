@@ -1,17 +1,9 @@
-  const sqlite3 = require("sqlite3").verbose();
-
+const Database = require('better-sqlite3');
 const path = require('path');
 
 // Criar ou abrir banco de dados SQLite
-const db = new sqlite3.Database(path.join(__dirname, 'marketplace.db'), (err) => {
-  if (err) {
-    console.error('Erro ao abrir o banco:', err.message);
-  } else {
-    console.log('Banco SQLite conectado com sucesso.');
-  }
-});
-
-
+const db = new Database(path.join(__dirname, 'marketplace.db'));
+console.log('Banco SQLite conectado com sucesso.');
 
 // Criar tabelas
 db.exec(`
